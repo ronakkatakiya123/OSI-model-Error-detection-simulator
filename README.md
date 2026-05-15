@@ -14,7 +14,7 @@ This project is a **web-based Data Communication (DC) Simulator** that visually 
 - **Noise Injection Simulation**: Allows users to manually flip bits in the transmitted data to simulate network noise and observe how the receiver detects or corrects the errors.
 
 ### Authors
-- Katakiya Ronak (24BCE225)
+- Katakiya Ronak
 
 ---
 
