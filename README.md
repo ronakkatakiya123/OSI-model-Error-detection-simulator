@@ -1,4 +1,4 @@
-# DC Simulator — OSI + Error Detection & Correction
+# OSI Model & Error Detection Protocols Visualizer
 
 ## 📖 About the Project
 This project is a **web-based Data Communication (DC) Simulator** that visually demonstrates the working of the OSI model and various error detection and correction techniques. It bridges the gap between theoretical data communication concepts and practical understanding through interactive visualization.
