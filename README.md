@@ -15,7 +15,6 @@ This project is a **web-based Data Communication (DC) Simulator** that visually 
 
 ### Authors
 - Katakiya Ronak (24BCE225)
-- Darshan Buddhdev (24BCE233)
 
 ---
 
