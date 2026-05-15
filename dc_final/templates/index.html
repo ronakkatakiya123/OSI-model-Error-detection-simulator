@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>OSI Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>OSI Model & Error Detection</h1>
+            <p>University Project - Data Communication</p>
+            <hr>
+        </div>
+
+        <p><strong>Status:</strong> <span id="current-phase-text">Idle</span></p>
+
+        <div id="layout">
+
+            <div id="left-col">
+                <h3>1. Simulation Initialization</h3>
+                Message string: <input type="text" id="msg" value="Hello" maxlength="20">
+                <button onclick="startSim()">Start Transmission</button>
+                <button onclick="resetAll()">Reset</button>
+
+                <br><br>
+                <div id="canvas-wrapper">
+                    <canvas id="osi"></canvas>
+                </div>
+
+                <p>Playback Controls:</p>
+                <button onclick="oC('first')">&lt;&lt;</button>
+                <button onclick="oC('prev')">&lt;</button>
+                <button onclick="oC('next')">&gt;</button>
+                <button onclick="oC('last')">&gt;&gt;</button>
+                <span id="osi-lbl"></span>
+                <span id="pdu-display"
+                    style="display:inline-flex; gap:4px; margin-left:20px; vertical-align:middle;"></span>
+
+                <br><br>
+                <fieldset>
+                    <legend>Transmission Events</legend>
+                    <div id="oexp-txt" style="font-weight: bold; margin-bottom: 10px;"></div>
+                    <div id="osiLog" class="plain-log"></div>
+                </fieldset>
+            </div>
+
+
+            <div id="right-col">
+                <h3>2. Error Management</h3>
+
+                <div id="vLocked">
+                    <p><em>(Simulation must attain Layer 2 to establish error technique)</em></p>
+                </div>
+
+                <div id="vChoose" style="display:none; border: 1px solid #aaa; padding: 10px; background: #fdfdfd;">
+                    <h4>Configuration</h4>
+                    <p>Select an algorithm for Layer 2 framing:</p>
+                    <select id="method-select" onchange="pickMethod(this.value)">
+                        <option value="" disabled selected>-- Select an algorithm --</option>
+                        <option value="parity">Parity Check (Detection)</option>
+                        <option value="checksum">Checksum (Detection)</option>
+                        <option value="crc">CRC (Detection)</option>
+                        <option value="hamming">Hamming Code (Correction)</option>
+                    </select>
+
+                    <div id="ex-parity" class="extra-opts" style="display:none; margin-top: 10px;">
+                        Parity type: <select id="par-type">
+                            <option value="even">Even</option>
+                            <option value="odd">Odd</option>
+                        </select>
+                    </div>
+                    <div id="ex-checksum" class="extra-opts" style="display:none; margin-top: 10px;">
+                        Segment size: <select id="cs-sz">
+                            <option value="4">4 bits</option>
+                            <option value="8" selected>8 bits</option>
+                        </select>
+                    </div>
+                    <div id="ex-crc" class="extra-opts" style="display:none; margin-top: 10px;">
+                        Generator Polynomial: <input type="text" id="crc-g" value="1011">
+                    </div>
+
+                    <br><button id="applyBtn" onclick="applyM()" style="display:none; margin-top:10px;">Apply
+                        Algorithm</button>
+                </div>
+
+                <div id="vTech" style="display:none;">
+                    <h4 id="ttl">Processing</h4>
+
+                    <div class="tc-wrapper">
+                        <canvas id="tc" height="150"></canvas>
+                    </div>
+
+                    <p>Algorithm Steps:</p>
+                    <button onclick="tC('first')">&lt;&lt;</button>
+                    <button onclick="tC('prev')">&lt;</button>
+                    <button onclick="tC('next')">&gt;</button>
+                    <button onclick="tC('last')">&gt;&gt;</button>
+                    | Step <span id="tlbl"></span>
+                    <br><br>
+
+                    <fieldset>
+                        <legend>Calculations</legend>
+                        <div id="tex-txt" style="font-weight: bold; margin-bottom: 5px;"></div>
+                        <div id="stepLog" class="plain-log"></div>
+                    </fieldset>
+
+                    <div id="injWrap" class="hidden-init"
+                        style=" margin-top: 20px; border: 2px dashed #999; padding: 10px; background: #ffffe0;">
+                        <h4>Physical Channel Interference</h4>
+                        <p>Modify bits manually beneath to emulate transmission noise:</p>
+                        <div id="ibits" style="display: flex; gap: 5px; flex-wrap: wrap;"></div>
+                        <br>
+                        <button onclick="runVerify()">Process Receiver Check</button>
+                        <button onclick="resetInj()">Revert Data</button>
+                        <button id="contBtn" onclick="continueOSI()" style="display:none;">Proceed to Layer 3</button>
+                    </div>
+                </div>
+
+                <div id="resBanner" class="hidden-init"
+                    style=" margin-top: 20px; padding: 10px; border: 1px solid #000; font-weight: bold;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="oexp"></div>
+    <div id="tech-badge"></div>
+    <div id="ex-parity"></div>
+    <div id="ex-checksum"></div>
+    <div id="ex-crc"></div>
+    <div id="ex-hamming"></div>
+    <div id="tex"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        function pickMethod(val) {
+            if (!val) return;
+            ['parity', 'checksum', 'crc', 'hamming'].forEach(id => {
+                const el = document.getElementById('ex-' + id);
+                if (el) el.style.display = (id === val) ? 'block' : 'none';
+            });
+            window.pickM(val, document.createElement('div'));
+            const btn = document.getElementById('applyBtn');
+            if (btn) btn.style.display = 'inline-block';
+        }
+
+        const origSetPhase = window.setPhase;
+        window.setPhase = function (n) {
+            const phaseNames = ["OSI Sender Encoding", "Layer 2 Pause - Configure Protection", "Encoding Frame", "Verifying Data", "OSI Receiver Decoding"];
+            const el = document.getElementById('current-phase-text');
+            if (el) el.textContent = phaseNames[n] || "Done";
+        };
+    </script>
+</body>
+
+</html>

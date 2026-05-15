@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f1f5f9;
+    color: #334155;
+    margin: 30px;
+    line-height: 1.5;
+}
+
+#container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+}
+
+#header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 { 
+    font-size: 28px; 
+    color: #0f172a; 
+    margin-bottom: 8px; 
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+#header p {
+    color: #475569;
+    font-size: 15px;
+    margin-top: 0;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #e2e8f0;
+    margin: 20px 0;
+}
+
+h3 { 
+    font-size: 18px; 
+    color: #1e293b; 
+    border-bottom: 2px solid #f1f5f9; 
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+h4 { 
+    margin: 15px 0 10px 0; 
+    color: #334155;
+    font-weight: 600;
+}
+
+#layout {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+#left-col, #right-col {
+    flex: 1;
+    min-width: 0;
+}
+
+button {
+    padding: 8px 16px;
+    margin: 4px 2px;
+    background: #3b82f6;
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+button:hover { 
+    background: #2563eb; 
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2), 0 2px 4px -1px rgba(59, 130, 246, 0.1);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+input[type=text], select {
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #334155;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type=text]:focus, select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+#canvas-wrapper {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    height: 380px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    overflow: hidden;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.tc-wrapper {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 320px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.tc-wrapper::-webkit-scrollbar, .plain-log::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.tc-wrapper::-webkit-scrollbar-track, .plain-log::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+.tc-wrapper::-webkit-scrollbar-thumb, .plain-log::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.tc-wrapper::-webkit-scrollbar-thumb:hover, .plain-log::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.plain-log {
+    height: 180px;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #f8fafc;
+    padding: 10px;
+    font-size: 12px;
+    font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+    color: #475569;
+}
+
+fieldset {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 15px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+legend {
+    font-weight: 600;
+    color: #64748b;
+    padding: 0 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bbit {
+    width: 32px;
+    height: 42px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #ffffff;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    user-select: none;
+    position: relative;
+    transition: all 0.2s;
+    font-size: 15px;
+    color: #334155;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.bbit:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.bbit.is-flipped { 
+    background: #fee2e2; 
+    border-color: #ef4444; 
+    color: #b91c1c;
+}
+
+.bbit.is-corrected { 
+    background: #dcfce7; 
+    border-color: #22c55e;
+    color: #15803d;
+}
+
+.bbit.is-parity { 
+    border: 2px solid #3b82f6; 
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.bbit-tag { display: none; }
+.bbit-pos { display: none; }
+
+
+.osi-log-row {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f1f5f9;
+    display: block;
+}
+.osi-log-row:last-child {
+    border-bottom: none;
+}
+.olr-badge, .olr-frame { display: none; } 
+.olr-content { display: block; margin-left: 5px; font-weight: normal; }
+
+.sle {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f1f5f9;
+}
+.sle:last-child {
+    border-bottom: none;
+}
+.sle-num { 
+    display: inline-block; 
+    width: 28px; 
+    font-weight: 600; 
+    color: #94a3b8;
+}
+.sle-content { display: inline-block; }
+
+.result-banner { 
+    margin-top: 20px; 
+    padding: 15px; 
+    border-radius: 8px; 
+    font-weight: 600; 
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.result-banner.show-ok { 
+    display: block; 
+    background: #ecfdf5; 
+    color: #059669; 
+    border: 1px solid #10b981; 
+}
+.result-banner.show-err { 
+    display: block; 
+    background: #fef2f2; 
+    color: #dc2626; 
+    border: 1px solid #ef4444; 
+}
+
+#vChoose {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    padding: 24px;
+    background: #ffffff;
+    margin-bottom: 20px;
+}
+
+#injWrap {
+    border-radius: 12px;
+    border: 2px dashed #cbd5e1 !important;
+    background: #f8fafc !important;
+    padding: 20px !important;
+}
+
+#oexp-txt, #tex-txt {
+    color: #334155;
+    font-size: 14px;
+}
+
+#osi-lbl, #tlbl {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #e2e8f0;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    margin-left: 8px;
+}
+
+#oexp, #tech-badge, #ex-parity, #ex-checksum, #ex-crc, #ex-hamming { display: none !important; }
+
+.hidden-init { display: none; }
+.hidden-init.show { display: block !important; }
+
+.explain-bar {
+    display: block;
+}
+
+.tech-explain {
+    display: block;
+}
